@@ -100,7 +100,7 @@ namespace ToyRobot
 			_currentDirection = _turnRight[_currentDirection];
 		}
 
-		public string Report() => $"{_currentLocation.X},{_currentLocation.Y},{_currentDirection.ToString().ToUpper()}";
+		public void Report() => Console.WriteLine($"{_currentLocation.X},{_currentLocation.Y},{_currentDirection.ToString().ToUpper()}");
 
 		/// <summary>
 		/// Move robot one position to North.
