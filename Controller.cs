@@ -23,11 +23,11 @@ namespace ToyRobot
 			_surface = surface;
 		}
 
-		public void Place(Placement placement)
+		public bool Place(InitialPlacement placement)
 		{
-			if (_surface.IsValidLocation(placement.InitialPoint))
+			if (_surface.IsValidLocation(placement.Point))
 			{
-				_robot = new Robot(placement.InitialPoint, placement.Direction);
+				_robot = new Robot(placement.Point, placement.Direction);
 
 				_action = new()
 				{
@@ -36,7 +36,13 @@ namespace ToyRobot
 					{ Actions.LEFT, _robot.TurnLeft },
 					{ Actions.REPORT, _robot.Report }
 				};
+
+				return true;
 			}
+			Console.ForegroundColor = ConsoleColor.Red;
+			Console.Error.WriteLine("The given position is not valid on a 6x6 surface!!!");
+			Console.ForegroundColor = ConsoleColor.Yellow;
+			return false;
 		}
 
 		public void Action(Actions action)
