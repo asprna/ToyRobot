@@ -75,8 +75,29 @@ namespace ToyRobot
 			Console.ForegroundColor = ConsoleColor.Yellow;
 			return false;
 		}
-		public List<Placement> SecondaryPlacement { get; set; }
-		public List<Actions> RobotActions { get; set; }
+
+		public void TrigerAction(Actions action)
+		{
+			_controller.Action(action);
+		}
+
+		public void ChangePosition(Match match)
+		{
+			if (IsInitialPositionSuccess)
+			{
+				int x, y;
+
+				if (int.TryParse(match.Groups[2].Value, out x)
+					&& int.TryParse(match.Groups[3].Value, out y))
+				{
+					_controller.ChangePosition(new Placement { Point = new Point(x, y) });
+					return;
+				}
+				Extension.ErrorOutput("Invalid X,Y coordinations");
+			}
+			Extension.ErrorOutput("Please set the initial position first");
+		}
+
 		public bool IsInitialPositionSuccess => InitialPosition != null;
 	}
 }

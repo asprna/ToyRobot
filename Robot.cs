@@ -33,7 +33,7 @@ namespace ToyRobot
 		/// <summary>
 		/// Represent characteristic of robot's move.
 		/// </summary>
-		private Dictionary<Direction, System.Action> _move;
+		private Dictionary<Direction, Func<Point>> _move;
 
 		/// <summary>
 		/// Represent characteristic of robot's turn left.
@@ -67,7 +67,7 @@ namespace ToyRobot
 			_currentLocation = point;
 			_currentDirection = direction;
 
-			_move = new Dictionary<Direction, Action>()
+			_move = new Dictionary<Direction, Func<Point>>()
 			{
 				{ Direction.North,  MoveNorth },
 				{ Direction.South,  MoveSouth },
@@ -76,12 +76,25 @@ namespace ToyRobot
 			};
 		}
 
+		public void ChangePosition(Point point)
+		{
+			_currentLocation = point;
+		}
+
+		/// <summary>
+		/// Get the next position of the robot's move
+		/// </summary>
+		/// <returns></returns>
+		public Point NextPosition()
+		{
+			return _move[_currentDirection].Invoke();
+		}
 		/// <summary>
 		/// Move the robot one position in the current direction.
 		/// </summary>
 		public void Move()
 		{
-			_move[_currentDirection].Invoke();
+			_currentLocation = NextPosition();
 		}
 
 		/// <summary>
@@ -105,19 +118,19 @@ namespace ToyRobot
 		/// <summary>
 		/// Move robot one position to North.
 		/// </summary>
-		private void MoveNorth() => _currentLocation = Point.Add(_currentLocation, new Size(1, 0));
+		private Point MoveNorth() => Point.Add(_currentLocation, new Size(0, 1));
 		/// <summary>
 		/// Move robot one position to South.
 		/// </summary>
-		private void MoveSouth() => _currentLocation = Point.Subtract(_currentLocation, new Size(1, 0));
+		private Point MoveSouth() => Point.Subtract(_currentLocation, new Size(0, 1));
 		/// <summary>
 		/// Move robot one position to East.
 		/// </summary>
-		private void MoveEast() => _currentLocation = Point.Add(_currentLocation, new Size(0, 1));
+		private Point MoveEast() => Point.Add(_currentLocation, new Size(1, 0));
 		/// <summary>
 		/// Move robot one position to West.
 		/// </summary>
-		private void MoveWest() => _currentLocation = Point.Subtract(_currentLocation, new Size(0, 1));
+		private Point MoveWest() => Point.Subtract(_currentLocation, new Size(1, 0));
 
 	}
 }

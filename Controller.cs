@@ -39,14 +39,27 @@ namespace ToyRobot
 
 				return true;
 			}
-			Console.ForegroundColor = ConsoleColor.Red;
-			Console.Error.WriteLine("The given position is not valid on a 6x6 surface!!!");
-			Console.ForegroundColor = ConsoleColor.Yellow;
+			Extension.ErrorOutput("The given position is not valid on a 6x6 surface!!!");
 			return false;
+		}
+
+		public void ChangePosition(Placement placement)
+		{
+			if (_surface.IsValidLocation(placement.Point))
+			{
+				_robot.ChangePosition(placement.Point);
+				return;
+			}
+			Extension.ErrorOutput("The given position is not valid on a 6x6 surface!!!");
 		}
 
 		public void Action(Actions action)
 		{
+			if (action.Equals(Actions.MOVE) && !_surface.IsValidLocation(_robot.NextPosition()))
+			{
+				Extension.ErrorOutput("I cannot move forward anymore, please turn me Left or Right!!!");
+				return;
+			}
 			_action[action].DynamicInvoke();
 		}
 	}
