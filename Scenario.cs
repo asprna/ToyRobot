@@ -14,10 +14,12 @@ namespace ToyRobot
 
 		public Scenario()
 		{
+			//Create a controller with a surface of 6*6.
 			_controller = new Controller(new Surface(6, 6));
 		}
+
 		/// <summary>
-		/// Representation the secondary placement.
+		/// The position of the robots.
 		/// </summary>
 		public class Placement
 		{
@@ -25,7 +27,7 @@ namespace ToyRobot
 		}
 
 		/// <summary>
-		/// Representation of the initial placement.
+		/// The initial placement with the direction.
 		/// </summary>
 		public class InitialPlacement : Placement
 		{
@@ -43,10 +45,19 @@ namespace ToyRobot
 			REPORT = 3
 		}
 
+		/// <summary>
+		/// Record the robot's initial position.
+		/// </summary>
 		public InitialPlacement InitialPosition { get; private set; }
+
+		/// <summary>
+		/// Assign the initial position to robot.
+		/// </summary>
+		/// <param name="match"></param>
+		/// <returns></returns>
 		public bool SetInitialPosition(Match match)
 		{
-			if (!IsInitialPositionSuccess)
+			if (!IsInitialPositionSuccess) //Check if the robot has an initial position 
 			{
 				int x, y;
 				Direction direction;
@@ -76,11 +87,19 @@ namespace ToyRobot
 			return false;
 		}
 
+		/// <summary>
+		/// Execute action submitted by the user.
+		/// </summary>
+		/// <param name="action"></param>
 		public void TrigerAction(Actions action)
 		{
 			_controller.Action(action);
 		}
 
+		/// <summary>
+		/// Change the position of the robot.
+		/// </summary>
+		/// <param name="match"></param>
 		public void ChangePosition(Match match)
 		{
 			if (IsInitialPositionSuccess)
@@ -98,6 +117,9 @@ namespace ToyRobot
 			Extension.ErrorOutput("Please set the initial position first");
 		}
 
+		/// <summary>
+		/// If the robots has a initial position.
+		/// </summary>
 		public bool IsInitialPositionSuccess => InitialPosition != null;
 	}
 }

@@ -8,6 +8,9 @@ using static ToyRobot.Scenario;
 
 namespace ToyRobot
 {
+	/// <summary>
+	/// Controller of the robot.
+	/// </summary>
 	public class Controller
 	{
 		private Robot _robot;
@@ -23,12 +26,18 @@ namespace ToyRobot
 			_surface = surface;
 		}
 
+		/// <summary>
+		/// Initial placement of the robots.
+		/// </summary>
+		/// <param name="placement">The position of the robots.</param>
+		/// <returns></returns>
 		public bool Place(InitialPlacement placement)
 		{
-			if (_surface.IsValidLocation(placement.Point))
+			if (_surface.IsValidLocation(placement.Point)) //Check if the given position is within the surface.
 			{
-				_robot = new Robot(placement.Point, placement.Direction);
+				_robot = new Robot(placement.Point, placement.Direction); //Place the robots
 
+				//assign action delegates
 				_action = new()
 				{
 					{ Actions.MOVE, _robot.Move },
@@ -43,9 +52,13 @@ namespace ToyRobot
 			return false;
 		}
 
+		/// <summary>
+		/// Change the position of the robots.
+		/// </summary>
+		/// <param name="placement"></param>
 		public void ChangePosition(Placement placement)
 		{
-			if (_surface.IsValidLocation(placement.Point))
+			if (_surface.IsValidLocation(placement.Point)) //Check if the given position is within the surface.
 			{
 				_robot.ChangePosition(placement.Point);
 				return;
@@ -53,6 +66,10 @@ namespace ToyRobot
 			Extension.ErrorOutput("The given position is not valid on a 6x6 surface!!!");
 		}
 
+		/// <summary>
+		/// Trigger the user action.
+		/// </summary>
+		/// <param name="action"></param>
 		public void Action(Actions action)
 		{
 			if (action.Equals(Actions.MOVE) && !_surface.IsValidLocation(_robot.NextPosition()))

@@ -58,7 +58,7 @@ namespace ToyRobot
 		};
 
 		/// <summary>
-		/// Constructor.
+		/// Create robots object.
 		/// </summary>
 		/// <param name="point">Initial position of the Robot</param>
 		/// <param name="direction">Initial direction of the Robot</param>
@@ -76,6 +76,10 @@ namespace ToyRobot
 			};
 		}
 
+		/// <summary>
+		/// Change the robot's position
+		/// </summary>
+		/// <param name="point">New position of the robots</param>
 		public void ChangePosition(Point point)
 		{
 			_currentLocation = point;
@@ -113,6 +117,9 @@ namespace ToyRobot
 			_currentDirection = _turnRight[_currentDirection];
 		}
 
+		/// <summary>
+		/// Report the current location and direction of the robots.
+		/// </summary>
 		public void Report() => Console.WriteLine($"{_currentLocation.X},{_currentLocation.Y},{_currentDirection.ToString().ToUpper()}");
 
 		/// <summary>
