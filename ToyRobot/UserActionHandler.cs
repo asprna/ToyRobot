@@ -21,7 +21,7 @@ namespace ToyRobot
 		/// <summary>
 		/// Regex to validate user moments.
 		/// </summary>
-		private const string action = @"(MOVE|LEFT|RIGHT|REPORT)$";
+		private const string action = @"\b(MOVE|LEFT|RIGHT|REPORT)\b$";
 		/// <summary>
 		/// Regex to validate position changes.
 		/// </summary>
@@ -79,6 +79,8 @@ namespace ToyRobot
 					_scenario.ChangePosition(changePositionRegexMatch);
 					return;
 				}
+
+				Extension.ErrorOutput("Invalid command");
 			}
 			catch
 			{

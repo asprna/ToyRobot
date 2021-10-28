@@ -32,7 +32,11 @@ namespace ToyRobot
 				try
 				{
 					command = Console.ReadLine();
-					userActionHandler.ParseUserInput(command);
+
+					if(!command.Equals("EXIT", StringComparison.OrdinalIgnoreCase))
+					{
+						userActionHandler.ParseUserInput(command);
+					}
 				}
 				catch
 				{
@@ -40,6 +44,8 @@ namespace ToyRobot
 					Console.WriteLine("---------- An error occurred!!! ----------");
 				}
 			}
+
+			Console.ForegroundColor = ConsoleColor.White;
 
 		}
 	}

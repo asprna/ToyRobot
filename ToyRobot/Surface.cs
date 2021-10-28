@@ -24,7 +24,7 @@ namespace ToyRobot
 		/// </summary>
 		/// <param name="point">(X,Y) coordination of the new location.</param>
 		/// <returns></returns>
-		public bool IsValidLocation(Point point) => point.X >= 0 && point.X <= Width && point.Y >= 0 && point.Y <= Length;
+		public bool IsValidLocation(Point point) => point.X >= 0 && point.X < Width && point.Y >= 0 && point.Y < Length;
 
 		/// <summary>
 		/// Constructor.

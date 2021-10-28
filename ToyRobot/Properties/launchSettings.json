@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "ToyRobot": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}

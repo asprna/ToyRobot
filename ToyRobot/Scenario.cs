@@ -93,7 +93,12 @@ namespace ToyRobot
 		/// <param name="action"></param>
 		public void TrigerAction(Actions action)
 		{
-			_controller.Action(action);
+			if (IsInitialPositionSuccess) //Check if the robot has an initial position 
+			{
+				_controller.Action(action);
+				return;
+			}
+			Extension.ErrorOutput("Please place the robot first");
 		}
 
 		/// <summary>

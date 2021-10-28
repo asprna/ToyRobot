@@ -120,7 +120,7 @@ namespace ToyRobot
 		/// <summary>
 		/// Report the current location and direction of the robots.
 		/// </summary>
-		public void Report() => Console.WriteLine($"{_currentLocation.X},{_currentLocation.Y},{_currentDirection.ToString().ToUpper()}");
+		public void Report() => Console.WriteLine($"Output: {_currentLocation.X},{_currentLocation.Y},{_currentDirection.ToString().ToUpper()}");
 
 		/// <summary>
 		/// Move robot one position to North.
