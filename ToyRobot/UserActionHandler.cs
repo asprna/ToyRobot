@@ -84,7 +84,7 @@ namespace ToyRobot
 			}
 			catch
 			{
-
+				Extension.ErrorOutput("Unexpected Error");
 			}
 		}
 	}

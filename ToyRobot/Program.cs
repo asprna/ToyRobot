@@ -27,10 +27,12 @@ namespace ToyRobot
 
 			UserActionHandler userActionHandler = new UserActionHandler();
 
+			//Exit the loop when user enter EXIT
 			while (!command.Equals("EXIT", StringComparison.OrdinalIgnoreCase))
 			{
 				try
 				{
+					//Read the user input
 					command = Console.ReadLine();
 
 					if(!command.Equals("EXIT", StringComparison.OrdinalIgnoreCase))

@@ -15,11 +15,13 @@ namespace ToyRobot
 		public Scenario()
 		{
 			//Create a controller with a surface of 6*6.
+			//TODO: This can be added as a configuration option.
 			_controller = new Controller(new Surface(6, 6));
 		}
 
 		/// <summary>
 		/// The position of the robots.
+		/// The direction is not allowed in subsequent placements
 		/// </summary>
 		public class Placement
 		{
@@ -28,6 +30,7 @@ namespace ToyRobot
 
 		/// <summary>
 		/// The initial placement with the direction.
+		/// Initial placement must contain point and direction.
 		/// </summary>
 		public class InitialPlacement : Placement
 		{
@@ -55,7 +58,7 @@ namespace ToyRobot
 		/// </summary>
 		/// <param name="match"></param>
 		/// <returns></returns>
-		public bool SetInitialPosition(Match match)
+		public void SetInitialPosition(Match match)
 		{
 			if (!IsInitialPositionSuccess) //Check if the robot has an initial position 
 			{
@@ -75,16 +78,15 @@ namespace ToyRobot
 					if(!_controller.Place(InitialPosition))
 					{
 						InitialPosition = null;
-						return false;
 					}
-					return true;
 				}
-				return false;
+			} 
+			else
+			{
+				Console.ForegroundColor = ConsoleColor.Red;
+				Console.Error.WriteLine("Incorrect command, try using command PLACE X,Y");
+				Console.ForegroundColor = ConsoleColor.Yellow;
 			}
-			Console.ForegroundColor = ConsoleColor.Red;
-			Console.Error.WriteLine("Unable to move the robots, try using command PLACE X,Y");
-			Console.ForegroundColor = ConsoleColor.Yellow;
-			return false;
 		}
 
 		/// <summary>

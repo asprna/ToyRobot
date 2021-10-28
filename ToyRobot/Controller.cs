@@ -77,7 +77,7 @@ namespace ToyRobot
 				Extension.ErrorOutput("I cannot move forward anymore, please turn me Left or Right!!!");
 				return;
 			}
-			_action[action].DynamicInvoke();
+			_action[action].Invoke();
 		}
 	}
 }
