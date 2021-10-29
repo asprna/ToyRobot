@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ToyRobot;
 using Xunit;
 
@@ -18,9 +15,15 @@ namespace ToyRobotTest
 				new object[] { new List<string> { "PLACE 0,0" }, "Please set the initial position first" },
 				new object[] { new List<string> { "LEFT" }, "Please place the robot first" },
 				new object[] { new List<string> { "RIGHT"}, "Please place the robot first" },
-				new object[] { new List<string> { "REPORT" }, "Please place the robot first" }
+				new object[] { new List<string> { "REPORT" }, "Please place the robot first" },
+				new object[] { new List<string> { "PLACE 0,0,North", "MOVE", "PLACE 0,0,North" }, "Incorrect command, try using command PLACE X,Y" },
 			};
 
+		/// <summary>
+		/// Validate if the controller reject invalid order of the actions
+		/// </summary>
+		/// <param name="scenario"></param>
+		/// <param name="expected"></param>
 		[Theory]
 		[MemberData(nameof(Data))]
 		public void InvalidUserInput_RobotMove_ErrorReturn(List<string> scenario, string expected)
