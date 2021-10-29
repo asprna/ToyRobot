@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ToyRobot;
 using Xunit;
 
@@ -22,6 +19,11 @@ namespace ToyRobotTest
 				new object[] { new List<string> { "PLACE 1,2,EAST", "Print" }, "Invalid command" },
 			};
 
+		/// <summary>
+		/// Validate if we are rejecting any invalid commands.
+		/// </summary>
+		/// <param name="scenario">Scenarios with invalid command.</param>
+		/// <param name="expected">Expected error.</param>
 		[Theory]
 		[MemberData(nameof(Data))]
 		public void InvalidUserInput_RobotMove_ErrorReturn(List<string> scenario, string expected)

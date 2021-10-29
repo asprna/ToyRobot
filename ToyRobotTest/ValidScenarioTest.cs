@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ToyRobot;
 using Xunit;
 
@@ -12,6 +8,9 @@ namespace ToyRobotTest
 {
 	public class ValidScenarioTest
 	{
+		/// <summary>
+		/// Happy path test scenarios
+		/// </summary>
 		public static IEnumerable<object[]> Data =>
 			new List<object[]>
 			{
@@ -21,6 +20,9 @@ namespace ToyRobotTest
 				new object[] { new List<string> { "PLACE 1,2,EAST", "MOVE", "LEFT", "MOVE", "PLACE 3,1", "MOVE", "REPORT" }, "Output: 3,2,NORTH" }
 			};
 
+		/// <summary>
+		/// Happy path test scenarios with case insensitive action
+		/// </summary>
 		public static IEnumerable<object[]> DataCaseInsensitive =>
 			new List<object[]>
 			{
@@ -30,6 +32,9 @@ namespace ToyRobotTest
 				new object[] { new List<string> { "PLACE 1,2,EAST", "MOVE", "Left", "MOVE", "Place 3,1", "MOVE", "REPORT" }, "Output: 3,2,NORTH" }
 			};
 
+		/// <summary>
+		/// Robot is on the edge of the surface and 
+		/// </summary>
 		public static IEnumerable<object[]> RobotOntheEdgeOfTheTable =>
 			new List<object[]>
 			{
@@ -39,6 +44,11 @@ namespace ToyRobotTest
 				new object[] { new List<string> { "PLACE 1,0,WEST", "MOVE", "MOVE" }, "I cannot move forward anymore, please turn me Left or Right!!!" }
 			};
 
+		/// <summary>
+		/// Happy path testing.
+		/// </summary>
+		/// <param name="scenario">Valid scenario</param>
+		/// <param name="expected">Expected end position</param>
 		[Theory]
 		[MemberData(nameof(Data))]
 		public void ValidScenario_RobotMove_Success(List<string> scenario, string expected)
@@ -57,6 +67,11 @@ namespace ToyRobotTest
 			Assert.Equal(expected, output);
 		}
 
+		/// <summary>
+		/// Happy path testing with case insensitive actions.
+		/// </summary>
+		/// <param name="scenario">Valid scenario</param>
+		/// <param name="expected">Expected end position</param>
 		[Theory]
 		[MemberData(nameof(DataCaseInsensitive))]
 		public void ValidScenario_CaseInsensitiveAction_Success(List<string> scenario, string expected)
@@ -75,6 +90,9 @@ namespace ToyRobotTest
 			Assert.Equal(expected, output);
 		}
 
+		/// <summary>
+		/// User unable to place the robot outside the surface.
+		/// </summary>
 		[Fact]
 		public void ValidScenario_PlaceingRobotOutsideTable_ErrorReturn()
 		{
@@ -92,6 +110,11 @@ namespace ToyRobotTest
 			Assert.Equal("The given position is not valid on a 6x6 surface!!!", output);
 		}
 
+		/// <summary>
+		/// Robots is on the edge and unable to move.
+		/// </summary>
+		/// <param name="scenario">Valid scenario</param>
+		/// <param name="expected">Expected error</param>
 		[Theory]
 		[MemberData(nameof(RobotOntheEdgeOfTheTable))]
 		public void ValidScenario_RobotOnTheEdgeOfTheTable_RobotStopMove(List<string> scenario, string expected)
